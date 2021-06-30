@@ -1,0 +1,10 @@
+$theme-colors: (
+  "yes": #1bc55f,
+  "abstain": #ffa800,
+  "no": #f54e60,
+);
+div.progress {
+  border-radius: 6px;
+  height: 4px;
+}
+@import "~bootstrap/scss/bootstrap";
