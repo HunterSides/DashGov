@@ -2,4 +2,4 @@ FROM node
 
 WORKDIR /usr/src/app
 
-RUN docker compose up
+CMD ["docker", "compose up"]
