@@ -1,8 +1,8 @@
 rest=1
 rpcallowip=::/0
 rpcbind=0.0.0.0
-rpcuser=dashrpc
-rpcpassword=password
+rpcuser=
+rpcpassword=
 txindex=1
 addressindex=1
 spentindex=1

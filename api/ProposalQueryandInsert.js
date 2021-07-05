@@ -13,7 +13,7 @@ var _ = require("lodash");
 
 require("dotenv").config();
 
-mongoose.connect(process.env.CONNECTION_URL, {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
