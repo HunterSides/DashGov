@@ -1,0 +1,38 @@
+version: "3"
+services:
+  api:
+    container_name: api-container
+    restart: always
+    build: ./api
+    ports:
+      - "81:5000"
+    depends_on:
+      - mongo
+      - dash
+    links:
+      - "dash:dash"
+  client:
+    container_name: client-container
+    restart: always
+    build: ./client
+    ports:
+      - "80:3000"
+    depends_on:
+      - api
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+  dash:
+    image: dashpay/dashd:latest
+    hostname: dash
+    ports:
+      - "19999:19999"
+      - "127.0.0.1:19998:19998"
+    container_name: dashgov-dash
+    entrypoint: dashd
+    volumes:
+      - ${PWD}/dash.conf:/dash/.dashcore/dash.conf
+volumes:
+  dashgov-dash: {}
