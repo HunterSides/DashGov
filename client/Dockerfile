@@ -1,16 +1,16 @@
 FROM node:13.12.0-alpine
 
-#WORKDIR /client
-WORKDIR /usr/src/app
+WORKDIR /client
 
-#COPY package*.json /client/
-COPY ./package.json ./
+
+COPY package*.json /client/
+
 
 RUN npm install
 
 # copy project files and folders to the current working directory (i.e. 'client' folder)
-#COPY . /client/
-COPY . . 
+COPY . /client/
+
 # build client for production with minification
 RUN npm run build
 
