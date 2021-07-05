@@ -1,5 +1,5 @@
 FROM node
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 RUN docker compose up
