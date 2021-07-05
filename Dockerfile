@@ -2,6 +2,10 @@ FROM node
 
 WORKDIR /usr/src/app
 
+RUN cd api && npm install && run npm start && cd .. 
 COPY . .
 
-CMD ["docker", "compose up"]
+RUN cd client && npm install && run npm start && cd .. 
+COPY . .
+
+
