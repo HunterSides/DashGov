@@ -36,7 +36,9 @@ export const createProposal = async (req, res) => {
     YesCount,
     NoCount,
     AbstainCount,
-    fCachedFunding
+    fCachedEndorsed,
+    fCachedFunding,
+    passing
   } = req.body;
 
   const newProposal = new Proposal({
@@ -47,7 +49,9 @@ export const createProposal = async (req, res) => {
     YesCount,
     NoCount,
     AbstainCount,
-    fCachedFunding
+    fCachedEndorsed,
+    fCachedFunding,
+    passing
   });
 
   try {
@@ -69,7 +73,9 @@ export const updateProposal = async (req, res) => {
     YesCount,
     NoCount,
     AbstainCount,
-    fCachedFunding
+    fCachedEndorsed,
+    fCachedFunding,
+    passing
   } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
@@ -83,7 +89,9 @@ export const updateProposal = async (req, res) => {
     YesCount,
     NoCount,
     AbstainCount,
+    fCachedEndorsed,
     fCachedFunding,
+    passing,
     _id: id
   };
 

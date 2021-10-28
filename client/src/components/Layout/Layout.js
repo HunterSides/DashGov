@@ -20,6 +20,7 @@ import Sidebar from "../Sidebar";
 
 // pages
 import Dashboard from "../../pages/dashboard";
+import WidgetsPage from "../../pages/widgets";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -43,7 +44,9 @@ function Layout(props) {
           <div className={classes.fakeToolbar} />
           <Switch>
             <Route path="/app/dashboard" component={Dashboard} />
+            <Route path="/app/widgets" component={WidgetsPage} />
           </Switch>
+
           <Box
             mt={5}
             width={"100%"}

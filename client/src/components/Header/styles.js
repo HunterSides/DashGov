@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
+import { Autorenew } from "@material-ui/icons";
 
 export default makeStyles((theme) => ({
   logotype: {
@@ -14,6 +15,7 @@ export default makeStyles((theme) => ({
   },
 
   appBar: {
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
     [theme.breakpoints.only("xs")]: {
       backgroundColor: "#252B3A",
     },
@@ -21,7 +23,7 @@ export default makeStyles((theme) => ({
       backgroundColor: "#252B3A",
     },
     [theme.breakpoints.only("md")]: {
-      backgroundColor: "#FFFFFF",
+      backgroundColor: "#252B3A",
     },
     [theme.breakpoints.only("lg")]: {
       backgroundColor: "#FFFFFF",
@@ -41,28 +43,15 @@ export default makeStyles((theme) => ({
   },
   selectInput: {
     padding: 10,
-    paddingRight: 20,
+    paddingRight: 30,
     "&:focus": {
-      backgroundColor: "white",
+      backgroundColor: "transparent",
+    },
+    "&:hover": {
+      color: theme.palette.dash.primary,
     },
   },
-  select: {
-    [theme.breakpoints.only("xs")]: {
-      color: "#FFFFFF",
-    },
-    [theme.breakpoints.only("sm")]: {
-      color: "#FFFFFF",
-    },
-    [theme.breakpoints.only("md")]: {
-      color: "#252B3A",
-    },
-    [theme.breakpoints.only("lg")]: {
-      color: "#252B3A",
-    },
-    [theme.breakpoints.only("xl")]: {
-      color: "#252B3A",
-    },
-  },
+
   hide: {
     display: "none",
   },
@@ -76,11 +65,11 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.only("sm")]: {
       display: "none",
     },
-  },
-  dashGovWhite: {
     [theme.breakpoints.only("md")]: {
       display: "none",
     },
+  },
+  dashGovWhite: {
     [theme.breakpoints.only("lg")]: {
       display: "none",
     },
@@ -204,7 +193,7 @@ export default makeStyles((theme) => ({
       color: "#FFFFFF",
     },
     [theme.breakpoints.only("md")]: {
-      color: "#252B3A",
+      color: "#FFFFFF",
     },
     [theme.breakpoints.only("lg")]: {
       color: "#252B3A",
@@ -214,5 +203,70 @@ export default makeStyles((theme) => ({
     },
   },
 
-  priceValueText: {},
+  paper: {
+    borderRadius: 5,
+    overflowX: "unset",
+    overflowY: "unset",
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      marginRight: ".5em",
+      top: -14,
+      right: 0,
+      width: 10,
+      height: 10,
+      backgroundColor: "white",
+      boxShadow: "0px 0px 30px rgba(82, 63, 105, 0.15)",
+      transform: "translate(-50%, 90%) rotate(315deg)",
+      clipPath:
+        "polygon(-5px -5px, calc(100% + 5px) -5px, calc(100% + 5px) calc(100% + 5px))",
+    },
+  },
+  currency: {
+    minHeight: "auto",
+    maxHeight: "auto",
+  },
+  list: {
+    paddingRight: "15px",
+    paddingLeft: "15px",
+    paddingBottom: "12px",
+    paddingTop: "12px",
+
+    "& li": {
+      fontStyle: "normal",
+      fontWeight: 500,
+      fontSize: "12px",
+      backgroundColor: "white",
+      color: "#7F8C98",
+      "&:hover": {
+        color: theme.palette.dash.primary,
+        backgroundColor: "transparent",
+      },
+      "&:focus": {
+        color: theme.palette.dash.primary,
+        backgroundColor: "white",
+      },
+      "&:selected": {
+        color: theme.palette.dash.primary,
+        backgroundColor: "transparent",
+      },
+    },
+  },
+  select: {
+    [theme.breakpoints.only("xs")]: {
+      color: "#FFFFFF",
+    },
+    [theme.breakpoints.only("sm")]: {
+      color: "#FFFFFF",
+    },
+    [theme.breakpoints.only("md")]: {
+      color: "#FFFFFF",
+    },
+    [theme.breakpoints.only("lg")]: {
+      color: "#252B3A",
+    },
+    [theme.breakpoints.only("xl")]: {
+      color: "#252B3A",
+    },
+  },
 }));

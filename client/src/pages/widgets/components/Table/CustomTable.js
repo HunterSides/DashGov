@@ -36,10 +36,10 @@ export default function Table(props) {
         setStatusColor(theme.palette.success.main);
       } else if (passing === true && fCachedFunding === false) {
         setStatusColor(theme.palette.warning.main);
-      } else if (passing === false && fCachedFunding === false) {
-        setStatusColor(theme.palette.noInfo.main);
       } else if (passing === false && pastTrigger === true) {
         setStatusColor(theme.palette.alert.main);
+      } else if (passing === false && fCachedFunding === false) {
+        setStatusColor(theme.palette.noInfo.main);
       }
     };
 

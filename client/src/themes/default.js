@@ -3,9 +3,10 @@ import tinycolor from "tinycolor2";
 const primary = "#536DFE";
 const secondary = "#F54E60";
 const warning = "#FFA800";
+const alert = "#F54E60";
 const success = "#1BC55F";
 const info = "#9013FE";
-
+const noInfo = "#E2E2E2";
 const lightenRate = 7.5;
 const darkenRate = 15;
 
@@ -27,6 +28,9 @@ const defaultTheme = {
       light: tinycolor(warning).lighten(lightenRate).toHexString(),
       dark: tinycolor(warning).darken(darkenRate).toHexString(),
     },
+    alert: {
+      main: alert,
+    },
     success: {
       main: success,
       light: tinycolor(success).lighten(lightenRate).toHexString(),
@@ -34,6 +38,11 @@ const defaultTheme = {
     },
     info: {
       main: info,
+      light: tinycolor(info).lighten(lightenRate).toHexString(),
+      dark: tinycolor(info).darken(darkenRate).toHexString(),
+    },
+    noInfo: {
+      main: noInfo,
       light: tinycolor(info).lighten(lightenRate).toHexString(),
       dark: tinycolor(info).darken(darkenRate).toHexString(),
     },
@@ -77,19 +86,19 @@ const defaultTheme = {
     },
     MuiMenu: {
       paper: {
-        boxShadow:
-          "0px 3px 11px 0px #E8EAFC, 0 3px 3px -2px #B2B2B21A, 0 1px 8px 0 #9A9A9A1A",
+        boxShadow: "0px 0px 30px rgba(82, 63, 105, 0.15);",
       },
     },
     MuiSelect: {
       icon: {
-        color: "#B9B9B9",
+        color: "inherit",
       },
     },
+
     MuiListItem: {
       root: {
         "&$selected": {
-          backgroundColor: "#F3F5FF !important",
+          backgroundColor: "#FFFFFF !important",
           "&:focus": {
             backgroundColor: "#F3F5FF",
           },

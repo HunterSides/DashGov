@@ -6,18 +6,25 @@ import {
   Select,
   Input,
   MenuItem,
+  Box,
+  Menu,
+  MenuList,
   TextField,
+  FormControl,
+  Button,
+  Paper,
+  Tooltip,
+  Popover,
 } from "@material-ui/core";
-
 import {
-  Menu as MenuIcon,
+  KeyboardArrowDown as DropDownIcon,
   ArrowBack as ArrowBackIcon,
 } from "@material-ui/icons";
 import classNames from "classnames";
 import useStyles from "./styles";
-import { Typography } from "../Wrappers";
+import { Typography } from "../Wrappers/Wrappers";
 import DashLogo from "../../images/DashLogo.svg";
-
+import Dropdown from "./Dropdown";
 // context
 import {
   useLayoutState,
@@ -32,11 +39,45 @@ export default function Header(props) {
   var layoutState = useLayoutState();
   var layoutDispatch = useLayoutDispatch();
 
-  // local
-
   var [value, setValue] = useLocalStorage("value", "usd");
-
   var [data, setData] = useState({ rates: {} });
+  const currencies = [
+    {
+      value: "USD",
+      label: "$",
+    },
+    {
+      value: "EUR",
+      label: "€",
+    },
+    {
+      value: "CAD",
+      label: "",
+    },
+    {
+      value: "GBP",
+      label: "",
+    },
+    {
+      value: "AUD",
+      label: "",
+    },
+  ];
+  const menuProps = {
+    classes: {
+      list: classes.list,
+      paper: classes.paper,
+    },
+    anchorOrigin: {
+      vertical: "bottom",
+      horizontal: "left",
+    },
+    transformOrigin: {
+      vertical: "top",
+      horizontal: "center",
+    },
+    getContentAnchorEl: null,
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,46 +93,15 @@ export default function Header(props) {
     };
     const timer = setTimeout(() => {
       fetchData();
-    }, 100);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, [data]);
-
-  //############################
 
   //############################################
   return (
     <AppBar position="fixed" elevation="0" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        {/*
-        <IconButton
-          onClick={() => toggleSidebar(layoutDispatch)}
-          className={classNames(
-            classes.headerMenuButtonSandwich,
-            classes.headerMenuButtonCollapse,
-          )}
-        >
-          {layoutState.isSidebarOpened ? (
-            <ArrowBackIcon
-              classes={{
-                root: classNames(
-                  classes.headerIcon,
-                  classes.headerIconCollapse,
-                ),
-              }}
-            />
-          ) : (
-            <MenuIcon
-              classes={{
-                root: classNames(
-                  classes.headerIcon,
-                  classes.headerIconCollapse,
-                ),
-              }}
-            />
-          )}
-        </IconButton>
-            */}
         <img src={DashLogo} className={classes.dashGovWhite} alt="Dash Logo" />
 
         <div className={classes.grow} />
@@ -113,23 +123,37 @@ export default function Header(props) {
             {Math.round(data.rates.price * 100) / 100}
           </Typography>
         </Typography>
-
-        <Select
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          input={
-            <Input disableUnderline classes={{ input: classes.selectInput }} />
-          }
-          className={classes.select}
-        >
-          <MenuItem value="usd">USD</MenuItem>
-
-          <MenuItem value="gbp">GBP</MenuItem>
-
-          <MenuItem value="cad">CAD</MenuItem>
-
-          <MenuItem value="eur">EUR</MenuItem>
-        </Select>
+        <FormControl className={classes.formControl}>
+          <Select
+            MenuProps={menuProps}
+            IconComponent={DropDownIcon}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            input={
+              <Input
+                disableUnderline
+                classes={{ input: classes.selectInput }}
+              />
+            }
+            className={classes.select}
+          >
+            <MenuItem className={classes.currency} value="usd">
+              USD
+            </MenuItem>
+            <MenuItem className={classes.currency} value="eur">
+              EUR
+            </MenuItem>
+            <MenuItem className={classes.currency} value="cad">
+              CAD
+            </MenuItem>
+            <MenuItem className={classes.currency} value="gbp">
+              GBP
+            </MenuItem>
+            <MenuItem className={classes.currency} value="cad">
+              AUD
+            </MenuItem>
+          </Select>
+        </FormControl>
       </Toolbar>
     </AppBar>
   );

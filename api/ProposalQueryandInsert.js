@@ -1,12 +1,3 @@
-//repsonsible for querying the dashnode and sending data to your database
-
-/* list of curl commands  
-  
-   (superblock data)  curl --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"getgovernanceinfo"}' -H 'content-type:text/plain;' http://dashrpc:password@127.0.0.1:9998/ 
-   (superblock budget) curl --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"getsuperblockbudget","params":[1478824]}' -H 'content-type:text/plain;' http://dashrpc:password@127.0.0.1:9998/
-   (governance data)  curl --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"gobject","params":["list","all","proposals"]}' -H 'content-type:text/plain;' http://dashrpc:password@127.0.0.1:9998/ 
-*/
-
 const fetch = require("node-fetch");
 const mongoose = require("mongoose");
 var _ = require("lodash");
@@ -21,6 +12,12 @@ mongoose.connect(process.env.MONGO_URI, {
 
 (async () => {
   const dataArr = [];
+  const passingThreshold = [];
+  function calcPassing() {
+    dataArr.forEach(v => {
+      v.passing = v.AbsoluteYesCount > passingThreshold[0].passingThreshold;
+    });
+  }
 
   function proposalInsert() {
     // Proposal model
@@ -32,7 +29,9 @@ mongoose.connect(process.env.MONGO_URI, {
       YesCount: { type: Number },
       NoCount: { type: Number },
       AbstainCount: { type: Number },
-      fCachedFunding: { type: Boolean }
+      fCachedEndorsed: { type: Boolean },
+      fCachedFunding: { type: Boolean },
+      passing: { type: Boolean }
     });
 
     // Function call
@@ -54,9 +53,22 @@ mongoose.connect(process.env.MONGO_URI, {
       method: "POST"
     });
 
+    const responseTwo = await fetch("http://dashrpc:password@127.0.0.1:9998/", {
+      body: '{"method":"masternode","params":["count"],"id":1,"jsonrpc":"2.0"}',
+      headers: { "content-type": "content-type:text/plain" },
+      method: "POST"
+    });
+
     const parsedresponse = await response.json();
+    const parsedresponseTwo = await responseTwo.json();
 
     const dataresult = parsedresponse.result;
+    const dataresultTwo = parsedresponseTwo.result;
+
+    const calcPassingThreshold = dataresultTwo.enabled / 10;
+    const threshold = { passingThreshold: calcPassingThreshold };
+    passingThreshold.push(threshold);
+
     return dataresult;
   }
 
@@ -89,6 +101,7 @@ mongoose.connect(process.env.MONGO_URI, {
             "YesCount",
             "NoCount",
             "AbstainCount",
+            "fCachedEndorsed",
             "fCachedFunding"
           ],
           [
@@ -99,6 +112,7 @@ mongoose.connect(process.env.MONGO_URI, {
             p.YesCount,
             p.NoCount,
             p.AbstainCount,
+            p.fCachedEndorsed,
             p.fCachedFunding
           ]
         );
@@ -107,6 +121,7 @@ mongoose.connect(process.env.MONGO_URI, {
       //return p
     });
 
+  calcPassing();
   proposalInsert();
 
   return dataArr;

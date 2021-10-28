@@ -30,7 +30,15 @@ var ProposalSchema = mongoose.Schema({
     type: Number,
     required: true
   },
+  fCachedEndorsed: {
+    type: Boolean,
+    require: true
+  },
   fCachedFunding: {
+    type: Boolean,
+    required: true
+  },
+  passing: {
     type: Boolean,
     required: true
   }

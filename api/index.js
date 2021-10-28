@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dontenv from "dotenv";
 import proposalRoutes from "./routes/proposals.js";
+import masterNodeRoutes from "./routes/masternodes.js";
 import superBlockRoutes from "./routes/superblock.js";
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors()); //cors must be called before routes app.use routes
 
 app.use("/proposals", proposalRoutes);
 app.use("/superblocks", superBlockRoutes);
+app.use("/masternodes", masterNodeRoutes);
 const PORT = process.env.PORT || 5000;
 
 mongoose

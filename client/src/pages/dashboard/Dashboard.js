@@ -45,14 +45,15 @@ export default function Dashboard(props) {
 
   useEffect(() => {
     (async () => {
-      const proposals = await axios.get("http://localhost:5000/proposals");
-      const superblocks = await axios.get("http://localhost:5000/superblocks");
+      const proposals = await axios.get("localhost:5000/proposals"); //replace localhost with ip of server ("http://147.182.212.182:81/proposals")
+      const superblocks = await axios.get("localhost:5000/superblocks");
       const dashRates = await axios.get(
         `https://rates2.dashretail.org/rates?source=dashretail&symbol=dashusd`,
       );
       const superblock = superblocks.data[0]; //used to calc deadline and date time
       const rates = dashRates.data[0];
       const proposal = proposals.data;
+      const pastTriggerObject = superblock.pastTrigger;
       const votingdeadline = superblock.nextsuperblock - 1662;
       const remainingDeadlineBlocks = votingdeadline - superblock.currentblock;
       const deadlineToMinutes = remainingDeadlineBlocks * 2.625;
@@ -60,18 +61,16 @@ export default function Dashboard(props) {
         (superblock.nextsuperblock - superblock.currentblock) * 2.625;
       const remainingBlocks =
         superblock.nextsuperblock - superblock.currentblock;
-      // day/hour/minute until voting deadline
       const d = Math.floor(deadlineToMinutes / 1440);
       const h = Math.floor((deadlineToMinutes - d * 1440) / 60);
       const m = Math.round(deadlineToMinutes % 60);
       const timeUntilDeadline = { days: d, hours: h, minutes: m };
-
-      // day/hour/minute until funds dispersed
       const dr = Math.floor(remainingTime / 1440);
       const hr = Math.floor((remainingTime - dr * 1440) / 60);
       const mr = Math.round(remainingTime % 60);
       const timeUntilFundingDispersed = { days: dr, hours: hr, minutes: mr };
 
+      // Functions
       const dateFromMinutes = () => {
         var currentDate = new Date();
         var futureDate = new Date(
@@ -107,21 +106,26 @@ export default function Dashboard(props) {
         setFundedRate({ newFundedRate });
         setFunds(funds);
       };
+      const triggerToProposals = () => {
+        proposal.forEach((v) => {
+          v.pastTrigger = pastTriggerObject;
+        });
+        console.log(proposalData);
+      };
 
+      triggerToProposals(proposal, pastTriggerObject);
       dateFromMinutes(deadlineToMinutes);
       calcRates(superblock, rates);
       calcBudgetAllocation(proposal, rates);
 
       setBlocks(remainingBlocks);
-      setProposalData(proposals.data); // used to iterate over on the front end
-      setSuperBlockData(superblocks.data); // used to iterate over on the front end
+      setProposalData(proposal);
+      setSuperBlockData(superblocks.data);
       setVotingDeadline(timeUntilDeadline);
       setTimeUntilFunding(timeUntilFundingDispersed);
     })();
   }, []);
 
-  //################################Used To convert Chart Data to Percentage#########################################
-  // mock chart data to be replaced once more historical data has been stored
   const mockChartData = [
     {
       month: "2015.01",
@@ -308,10 +312,18 @@ export default function Dashboard(props) {
 
   return (
     <>
-      <Box ml={3} mr={3}>
+      <div className={classes.mainDivBody}>
         <Grid container spacing={3}>
           {superBlockData.map((item) => (
-            <Grid item lg={4} md={6} sm={12} xs={12} key={item}>
+            <Grid
+              item
+              lg={4}
+              md={4}
+              sm={12}
+              xs={12}
+              key={item}
+              className={classes.mainGridBody}
+            >
               <Widget
                 title="Budget Allocation 20%"
                 noBodyPadding
@@ -374,7 +386,7 @@ export default function Dashboard(props) {
               </Widget>
             </Grid>
           ))}
-          <Grid item lg={4} md={6} sm={12} xs={12}>
+          <Grid item lg={4} md={4} sm={12} xs={12}>
             <Widget
               title="Voting Activity"
               noBodyPadding
@@ -429,7 +441,7 @@ export default function Dashboard(props) {
             </Widget>
           </Grid>
           {superBlockData.map((item) => (
-            <Grid item lg={4} md={12} sm={12} xs={12} key={item}>
+            <Grid item lg={4} md={4} sm={12} xs={12} key={item}>
               <Widget
                 title="Voting Deadline"
                 upperTitle
@@ -542,7 +554,7 @@ export default function Dashboard(props) {
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </div>
     </>
   );
 }
