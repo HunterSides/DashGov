@@ -65,13 +65,18 @@ export default makeStyles((theme) => ({
     paddingRight: theme.spacing(1),
   },
   proposalYesVotes: {
-    paddingRight: theme.spacing(1),
+    // paddingRight: theme.spacing(1),
   },
   proposalAbstainVotes: {
-    paddingRight: theme.spacing(1),
+    //paddingRight: theme.spacing(1),
   },
   proposalNoVotes: {
-    paddingRight: theme.spacing(1),
+    //paddingRight: theme.spacing(1),
+  },
+  proposalNeededVotes: {
+    color: "#9babb9",
+    //color: theme.palette.needed.main,
+    //paddingRight: theme.spacing(1),
   },
   redirectLink: {
     backgroundColor: "",

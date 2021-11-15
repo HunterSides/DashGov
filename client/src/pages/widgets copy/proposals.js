@@ -30,13 +30,13 @@ const proposals = [
     payment_amount: 540.6,
     url: "https://www.dashcentral.org/p/Scoby-Society-investment",
     AbsoluteYesCount: -121,
-    YesCoun: 79,
-    NoCout: 200,
-    AbstainCout: 60,
-    fCachedEndorsd: false,
-    fCachedFundig: false,
-    passig: false,
-    pastTriggr: true,
+    YesCount: 79,
+    NoCount: 200,
+    AbstainCount: 60,
+    fCachedEndorsed: false,
+    fCachedFunding: false,
+    passing: false,
+    pastTrigger: true,
   },
   {
     name: "dash-text-q3-2021",
@@ -182,3 +182,5 @@ const proposals = [
     pastTrigger: true,
   },
 ];
+
+export default proposals;

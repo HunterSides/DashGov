@@ -1,0 +1,29 @@
+TODO: 
+
+**** CHANGE SUPERBLOCK TO VOTINGDEADLINE IN DASHBOARD/WIDGET and make sure the PASTTRIGGER BOOLEAN IN BACKEND IS CHANGED IN SUPERBLOCK.js & SUPERBLOCKTESTING.js
+
+
+- Table
+    - Must Add Scraping 
+    - Bars need to display a light blue area for the remaining % of MN votes needed along with a needed category next to Yes/abstain/no 
+        - ex.
+            A proposal with 20 yes votes, 5 no votes and 4500 registered mnos 
+                Needs 450 votes to pass 
+                20/450 = 4% green
+                5/450 = 1% red 
+                95% light grey
+
+            A proposal with 800 yes votes, 50 no votes, 20 abstain votes, 4500 registered mnos
+                800 + 50 + 20 = 870
+                800/870 =  92% green
+                50/870 = 6% red
+                20/870 = 2% yellow 
+                (no pale blue)
+    - progress bar should sit closer to Yes/no/abstain/needed 
+
+- Voting Deadline
+    - Once past the trigger, this should switch to ‘Superblock’ with a countdown to the superblock. 
+        - Title should switch from Voting deadline to Superblock countdown and date should reflect. 
+        - swap Current with Trigger and Trigger with Super, replace start with trigger and trigger with superblock 
+        
+        

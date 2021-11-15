@@ -37,7 +37,7 @@ export default makeStyles((theme) => ({
   tableWidget: {
     overflowX: "auto",
   },
-  button: {},
+
   redirectButton: {
     backgroundColor: theme.palette.dash.primary,
   },

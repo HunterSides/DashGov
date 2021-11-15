@@ -20,6 +20,7 @@ export default function Table(props) {
     YesCount,
     NoCount,
     AbstainCount,
+    NeededCount,
     fCachedFunding,
     fCachedEndorsed,
     pastTrigger,
@@ -153,8 +154,28 @@ export default function Table(props) {
                       {NoCount}
                     </Typography>
                   </Typography>
+                  {/* <Typography
+                    size="sm"
+                    variant="subtitle"
+                    color="text"
+                    weight="bold"
+                    colorBrightness="secondary"
+                    className={classes.proposalDescriptionText}
+                    noWrap
+                  >
+                    NEEDED{" "}
+                    <Typography
+                      size="sm"
+                      variant="subtitle"
+                      weight="bold"
+                      className={classes.proposalNeededVotes}
+                      noWrap
+                    >
+                      {NeededCount}
+                    </Typography>
+                  </Typography>*/}
                 </Grid>
-                <Grid item xs={11} sm={5} md={3} lg={3} xl={5}>
+                <Grid item xs={11} sm={5} md={3} lg={4} xl={5}>
                   <Box pt={1.2}>
                     <ProgressBar class="progress">
                       <ProgressBar variant="yes" now={YesCount} key={1} />
@@ -164,6 +185,7 @@ export default function Table(props) {
                         key={2}
                       />
                       <ProgressBar variant="no" now={NoCount} key={3} />
+                      <ProgressBar variant="needed" now={NeededCount} key={4} />
                     </ProgressBar>
                   </Box>
                 </Grid>
